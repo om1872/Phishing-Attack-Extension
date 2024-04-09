@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Font-Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a class="hamburger item"><i class="fa-solid fa-bars fa-lg"></i></a>
+        <div class="navbar-item" id="ham">
+            <a href="/" class="item link">Home</a>
+            <ul class="item genre-link">
+                <li>
+                    <span hidden id="gen-mobile"></span>
+                    <a href="#" class="item" style="margin: 0;">Genre <i class="fa-solid fa-xs fa-caret-down"></i></a>
+                    <div class="dropdown-genre" style="z-index: 999;">
+                        <div class="arrow"></div>
+                        <ul class="genre-item">
+                            <li>
+                                <p class="h1" style="margin: auto 0.6rem; font-size:1.2rem;">Movie</p>
+                            </li>
+                            <% movieGenre.genres.forEach(gen=> { %>
+                                <li><a href="/api/genre/movie/<%= gen.id %>?name=<%= gen.name %>" class="item">
+                                        <%= gen.name %>
+                                    </a></li>
+                                <% }) %>
+                        </ul>
+                        <ul class="genre-item">
+                            <li>
+                                <p class="h1" style="margin: auto 0.6rem; font-size: 1.2rem;">TV</p>
+                            </li>
+                            <% tvGenre.genres.forEach(gen=> { %>
+                                <li><a href="/api/genre/tv/<%= gen.id %>?name=<%= gen.name %>" class="item">
+                                        <%= gen.name %>
+                                    </a></li>
+                                <% }) %>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <a class="item link" href="/api/trending">Trending</a>
+            <a class="item link" href="/api/tvshows">TV Shows</a>
+        </div>
+        <% if (user) { %>
+            <div class="navbar-last item">
+                <div class="dropdown">
+                    <button class="btn"><img src="/img/icons/ghost.gif" class="icon" />
+                        <%= user.name %>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/api/bucket/myBucket">My Bucket</a>
+                        <% if (user.admin) { %>
+                            <!-- <a href="#" class="link">Statistics</a> -->
+                            <a href="/api/upload/movieUpload" class="link">Movie Management</a>
+                            <!-- <a href="#" class="link">Stream Management</a> -->
+                            <% } %>
+                                <a href="/api/auth/logout">Log Out</a>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+                <div class="navbar-last">
+                    <a class="item link" id="login">Log In</a>
+                    <button class="btn" id="signup">Sign Up</button>
+                </div>
+                <% } %>
+
+    </nav>
+
+    <!-- Welcome page main section -->
+    <section>
+        <div class="wrapper">
+            <div class="poster-row">
+                <% images.forEach(image=> { %>
+                    <img class="poster" src="<%= image.src %>" alt="<%= image.title %>"></img>
+                    <% }) %>
+            </div>
+            <div class="header">
+                <a href="/api/dashboard"><img class="logo-img" src="/img/brand-logo.png" alt=""></a>
+                <form method="GET" action="/api/search" class="search-form">
+                    <input type="text" name="query" id="" placeholder="Search here..."><button class="btn"
+                        type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+                <div class="info">Welcome to Home Cinema, here you can explore all latest movies, animes, tv shows and
+                    can watch it here. Some of these are managed on server and some are of 3rd party sources <i class="fa-solid fa-face-smile"></i></div>
+            </div>
+
+        </div>
+    </section>
+    <!-- footer and login forms -->
+    <%- include('./footer.ejs') %>
+    
+    <script src="/js/navbar.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+
+</html>

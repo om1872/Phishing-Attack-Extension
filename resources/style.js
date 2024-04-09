@@ -9,13 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
         checkPhishing(url, "check");
     });
 
-    document
-        .getElementById("check-url-form")
-        .addEventListener("submit", function (event) {
-            event.preventDefault();
-            var url = document.getElementById("urlInput").value;
-            checkPhishing(url);
-        });
+    document.getElementById("check-url-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var url = document.getElementById("urlInput").value;
+        checkPhishing(url);
+    });
 });
 
 
@@ -27,22 +25,20 @@ function getUrlFromBrowserHandler() {
 }
 
 
-function checkPhishing(url) {
+async function checkPhishing(url) {
     // Send request to machine learning API with the URL as the input
-    alert(url);
-    fetch(`http://127.0.0.1:3000/api?url=${url}`, {
-        method: "GET",
+    await fetch(`http://127.0.0.1:3000/api/model/checkURL`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-    })
-        .then((response) => response.json())
-        .then((data) => {
+        body: JSON.stringify({ "url": JSON.stringify(url) })
 
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+    }).then((response) => response.json()).then((data) => {
+
+    }).catch((error) => {
+        console.error("Error:", error);
+    });
 }
 
 
