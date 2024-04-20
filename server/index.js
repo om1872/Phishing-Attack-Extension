@@ -15,7 +15,6 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
 app.use((req,res,next)=>{
-    // console.clear();
     console.log(`${req.method}: ${req.url}`);
     next();
 })
