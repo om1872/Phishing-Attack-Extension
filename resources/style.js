@@ -35,7 +35,7 @@ async function checkPhishing(url) {
         body: JSON.stringify({ "url": JSON.stringify(url) })
 
     }).then((response) => response.json()).then((data) => {
-
+        // response handle
     }).catch((error) => {
         console.error("Error:", error);
     });

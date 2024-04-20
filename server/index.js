@@ -2,16 +2,13 @@ const express = require('express');
 const cookieParser=require('cookie-parser');
 var path = require('path');
 
-
-
-
 //controllers
 const homeRoute=require('./controller/homeRoute'); 
 const modelRoute=require('./controller/modelRoute');
 
 const app = express();
 
-const PORT =process.env.PORT || 3000;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));

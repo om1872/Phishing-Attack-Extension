@@ -1,24 +1,37 @@
-const tf = require('@tensorflow/tfjs-node');
+const tf = require('@tensorflow/tfjs');
+const { extractFeaturesFromURL } = require('./feature_extraction');
 
-// Define a simple model.
-const model = tf.sequential();
-model.add(tf.layers.dense({units: 100, activation: 'relu', inputShape: [10]}));
-model.add(tf.layers.dense({units: 1, activation: 'linear'}));
-model.compile({optimizer: 'sgd', loss: 'meanSquaredError'});
 
-const xs = tf.randomNormal([100, 10]);
-const ys = tf.randomNormal([100, 1]);
+const puppeteer = require('puppeteer');
 
-// Train the model.
-model.fit(xs, ys, {
-  epochs: 100,
-  callbacks: {
-    onEpochEnd: (epoch, log) => console.log(`Epoch ${epoch}: loss = ${log.loss}`)
-  }
-});
+async function callModelServerAndPredict(inputs) {
+  const browser = await puppeteer.launch();
 
-function classificationModel(){
+  // Create a page
+  const page = await browser.newPage();
 
+  // Go to your site
+  await page.goto('http://localhost:5500/index.html', {
+    waitUntil: 'networkidle0'
+  });
+
+  // Create a mock function (evaluate will replace this with the actual function)
+  const tfdfPredict = (inputs) => { };
+
+  // Call the predict function inside the page
+  const result = await page.evaluate((inputs) => {
+    return tfdfPredict(inputs);
+  }, inputs);
+
+  return result;
+};
+
+
+async function classificationModel(url) {
+  const input = await extractFeaturesFromURL(url);
+  const result = await callModelServerAndPredict(input);
+  return result;
 }
 
-module.exports = classificationModel;
+
+module.exports = { classificationModel };

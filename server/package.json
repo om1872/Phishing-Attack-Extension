@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --env-file .env index.js",
+    "start": "node index.js",
     "start:dev": "nodemon --env-file .env index.js "
   },
   "keywords": [],
@@ -13,12 +13,15 @@
   "license": "ISC",
   "dependencies": {
     "@tensorflow/tfjs-node": "^4.17.0",
+    "@tensorflow/tfjs-tfdf": "^0.0.1-alpha.20",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "mongoose": "^8.0.1",
+    "node-pickle": "^0.0.2",
     "nodemon": "^3.0.1",
     "npm": "^10.5.1",
+    "puppeteer": "^22.6.3",
     "serve-favicon": "^2.5.0",
     "validator": "^13.11.0"
   }
