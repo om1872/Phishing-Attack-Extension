@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser=require('cookie-parser');
+require('./utils/frequentDomainList');
 var path = require('path');
 
 //controllers

@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.5.0/dist/tf.min.js">console.log("Tensorflow file loaded");</script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tfdf/dist/tf-tfdf.min.js">console.log("TFDF module loaded")</script>
+</head>
+
+<body>
+    <div class="data"></div>
+    <script>
+        async function tfdfPredict(inputs) {
+            const model = await tfdf.loadTFDFModel("http://localhost:5500/tfjs_model/model.json");
+            console.log("Model called");
+            const inputsInModelFormat = {
+                "numdots": tf.cast(tf.tensor([inputs["numdots"]]), 'int32'),
+                "pathlevel": tf.cast(tf.tensor([inputs["pathlevel"]]), 'int32'),
+                "numdash": tf.cast(tf.tensor([inputs["numdash"]]), 'int32'),
+                "numsensitivewords": tf.cast(tf.tensor([inputs["numsensitivewords"]]), 'int32'),
+                "pctexthyperlinks": tf.cast(tf.tensor([inputs["pctexthyperlinks"]]), 'float32'),
+                "pctextresourceurls": tf.cast(tf.tensor([inputs["pctextresourceurls"]]), 'float32'),
+                "insecureforms": tf.cast(tf.tensor([inputs["insecureforms"]]), 'int32'),
+                "pctnullselfredirecthyperlinks": tf.cast(tf.tensor([inputs["pctnullselfredirecthyperlinks"]]), 'float32'),
+                "frequentdomainnamemismatch": tf.cast(tf.tensor([inputs["frequentdomainnamemismatch"]]), 'int32'),
+                "submitinfotoemail": tf.cast(tf.tensor([inputs["submitinfotoemail"]]), 'int32'),
+                "iframeorframe": tf.cast(tf.tensor([inputs["iframeorframe"]]), 'int32')
+            };
+
+            const result = await model.executeAsync(inputsInModelFormat);
+            return result.dataSync();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+{
+  "name": "Phishing URL Detection",
+  "description": "An real-time extension for phishing urls detection",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "64": "./resources/images/icon-64.png"
+  },
+  "background": {
+    "service-worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches":["*://*/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "permissions": [
+    "tabs",
+    "clipboardWrite",
+    "storage"
+  ],
+  "content_security_policy": {
+    "script-src": "self",
+    "object-src": "self"
+  }
+}

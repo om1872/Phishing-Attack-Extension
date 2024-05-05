@@ -27,9 +27,11 @@ async function callModelServerAndPredict(inputs) {
 };
 
 
-async function classificationModel(url) {
-  const input = await extractFeaturesFromURL(url);
+async function classificationModel(url,urlFeatures) {
+  const input = await extractFeaturesFromURL(url,urlFeatures);
+  console.log('Final Inputs to Model From Server: '+ JSON.stringify(input,null,2));
   const result = await callModelServerAndPredict(input);
+  console.log('Waiting for output from Model ...');
   return result;
 }
 
