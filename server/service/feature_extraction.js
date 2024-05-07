@@ -46,7 +46,7 @@ function getNumSensitiveWords(host, pathname, search, hash) {
     })
     phishingWordlist.forEach(word => {
         const regex = new RegExp("\\b" + word + "\\b", "gi");
-        if(host.match(regex)){
+        if(hash.match(regex)){
             count++;
             return;
         }
@@ -56,14 +56,13 @@ function getNumSensitiveWords(host, pathname, search, hash) {
 }
 
 function getFrequentDomainNameMismatch(domain) {
-    // console.log(domain);
-    let check = true;
+    let isFound = false;
     frequentDomainNameList.forEach(domainFromList => {
-        if(domain.match(domainFromList)){
-            check = false;
+        if(domainFromList.includes(domain)){
+            isFound = true;
         }
     });
-    return check?1:0;
+    return isFound ? 0 : 1;
 }
 
 

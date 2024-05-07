@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         integrity="sha256-PI8n5gCcz9cQqQXm3PEtDuPG8qx9oFsFctPg0S5zb8g=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="/resources/jquery.min.js"></script>
+    <script src="/resources/jspdf.umd.min.js"></script>
+    <script src="/resources/jspdf.plugin.autotable.js"></script>
     <style>
         body {
             width: 500px;
@@ -22,30 +25,27 @@
             margin-bottom: 0;
             padding: 0;
         }
-        .alert-suceess,.alert-danger,.alert-warning{
+        .alert-success,.alert-danger,.alert-warning,.alert-critical{
             margin-top: 2%;
             margin-bottom: 2%;
             padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x) ;
         }
+        .alert-critical{
+            background-color: #fd7e14;
+        }
+
     </style>
 </head>
 
 <body>
+    <!--Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><i class="bi bi-eye"></i> Phish-Eye</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Download Report</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">View BlackList URL's</a>
+                        <a class="nav-link" aria-current="page" href="#" id="downloadReport"><u>Download History</u></a>
                     </li>
                 </ul>
             </div>
@@ -84,7 +84,6 @@
     <script type="module" src="/resources/style.js"></script>
 
     <script src="/resources/bootstrap.min.js"></script>
-
 </body>
 
 </html>

@@ -1,8 +1,9 @@
 const tf = require('@tensorflow/tfjs');
+const puppeteer = require('puppeteer');
+
 const { extractFeaturesFromURL } = require('./feature_extraction');
 
 
-const puppeteer = require('puppeteer');
 
 async function callModelServerAndPredict(inputs) {
   const browser = await puppeteer.launch();
@@ -30,8 +31,8 @@ async function callModelServerAndPredict(inputs) {
 async function classificationModel(url,urlFeatures) {
   const input = await extractFeaturesFromURL(url,urlFeatures);
   console.log('Final Inputs to Model From Server: '+ JSON.stringify(input,null,2));
-  const result = await callModelServerAndPredict(input);
   console.log('Waiting for output from Model ...');
+  const result = await callModelServerAndPredict(input);
   return result;
 }
 
